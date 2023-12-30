@@ -30,6 +30,17 @@ The table below compares various performance metrics for the Brotli, GZip, and D
 
 *Note: All tests were conducted on 10 MB of data.*
 
+## Application Screenshots
+
+### Deflate
+![Test 1 Output](.assets/deflate.png)
+
+### Gzip
+![Test 2 Output](.assets/gzip.png)
+
+### Brotli
+![Test 2 Output](.assets/brotli.png)
+
 ## Features
 
 - **Compression Time**: Measures the time taken to compress the test data.
