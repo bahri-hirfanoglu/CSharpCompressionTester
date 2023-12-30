@@ -24,6 +24,7 @@ The table below compares various performance metrics for the Brotli, GZip, and D
 | Peak Memory Usage during Decompression | 10000024  | 10000024  | 10000024  |
 | Avg. Compression Time over 5 runs (ms) | 409,6 | 410,2 | 9487 |
 | Avg. Decompression Time over 5 runs (ms) | 10,8 | 10,4 | 12,8 |
+| Avg. Memory Usage over 5 runs (bytes) | 45178344 | 45178584 | 45173908 |
 | Compression Throughput | 23,84 MB/s | 23,66 MB/s | 0,92 MB/s |
 | Decompression Throughput | 280,58 MB/s | 414,77 MB/s | 366,80 MB/s |
 
