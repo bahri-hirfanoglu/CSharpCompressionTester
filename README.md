@@ -19,9 +19,9 @@ The table below compares various performance metrics for the Brotli, GZip, and D
 | Decompression Time (ms)     | 12,67     | 14,30     | 13,7     |
 | CPU Time for Compression (ms)| 97859,37   | 102109,37  | 39265,52 |
 | CPU Time for Decompression (ms)| 15,62   | 15,62  | 15,62 |
-| Memory Usage (bytes)        | 45177576 (45,177mb)  | 45177624 (45,177)  | 45173632 (45,173mb)  |
-| Average Compression Time over 5 runs (ms) | 409,6 | 410,2 | 9487 |
-| Average Decompression Time over 5 runs (ms) | 10,8 | 10,4 | 12,8 |
+| Memory Usage (bytes)        | 45177576  | 45177624  | 45173632  |
+| Avg. Compression Time over 5 runs (ms) | 409,6 | 410,2 | 9487 |
+| Avg. Decompression Time over 5 runs (ms) | 10,8 | 10,4 | 12,8 |
 
 *Note: These values are provided as examples. Please use the actual results from your tests. All tests were conducted on 10 MB of data.*
 
