@@ -37,26 +37,6 @@ The table below compares various performance metrics for the Brotli, GZip, and D
 
 ***NOTE:** This section was prepared by ChatGPT 4 based on test results.*
 
-The table compares the performance of Deflate, GZip, and Brotli compression algorithms across various metrics. Here's an interpretation of the results:
-
-### 1. **Compression Time (ms):**
-- **For Small Data Set:** Deflate and GZip offer similar compression times, while Brotli takes significantly longer. This might indicate that Brotli uses more complex algorithms to achieve higher compression ratios.
-- **For Large Data Set (Stress Test):** A similar trend is observed for large data sets, with Brotli taking much longer to compress.
-
-### 2. **Decompression Time (ms):**
-- Decompression times for all algorithms are relatively similar, indicating comparable efficiency in this aspect.
-
-### 3. **CPU Time for Compression/Decompression (ms):**
-- Brotli uses significantly less CPU time for compression compared to the others, which may indicate higher efficiency. However, this is offset by longer compression times.
-- CPU times for decompression are similar across all algorithms, suggesting a comparable resource usage for this operation.
-
-### 4. **Memory Usage:**
-- All algorithms utilize a similar amount of memory. However, peak memory usage during compression and decompression might vary.
-
-### 5. **Throughput:**
-- **Compression:** Brotli's throughput efficiency (in MB/s) is significantly lower, indicating slower performance.
-- **Decompression:** For decompression efficiency, Brotli offers competitive values compared to the others.
-
 ### Overall Assessment:
 - **Deflate and GZip:** These algorithms show similar performance and are generally faster in terms of compression and decompression times but may use more CPU time compared to Brotli.
 - **Brotli:** It might offer better compression ratios (not directly shown in the table but implied by longer compression times) but requires significantly more time for compression. It's more efficient in terms of CPU usage.
