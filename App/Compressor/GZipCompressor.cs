@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CSharpCompression.Compressor;
+using System;
 using System.Collections.Generic;
 using System.IO.Compression;
 using System.Linq;

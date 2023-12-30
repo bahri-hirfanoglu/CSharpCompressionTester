@@ -1,10 +1,10 @@
-﻿using System;
+﻿using CSharpCompression.Compressor;
+using System;
 using System.Collections.Generic;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Utilities.Compressor;
 
 namespace CSharpCompression.App.Compressor
 {
