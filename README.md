@@ -13,7 +13,7 @@ This application currently supports the following compression algorithms:
 
 The table below compares various performance metrics for the Brotli, GZip, and Deflate algorithms.
 
-|           | Deflate   | GZip     | Brotli    |
+|    Test   | Deflate   | GZip     | Brotli    |
 |-----------|-----------|----------|-----------|
 | Compression Time (ms)       | 410,70    | 405,59   | 10584,17  |
 | Decompression Time (ms)     | 12,67     | 14,30     | 13,7     |

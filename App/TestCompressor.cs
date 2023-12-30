@@ -29,8 +29,11 @@ namespace CSharpCompression.App
             TestCompressionRatio();
             TestMemoryUsage();
             TestCPULoad();
+            TestDataSizeReduction();
+            TestThroughputRate();
             TestIntegrity();
             TestMultipleRuns(numberOfRuns);
+         
 
             Console.WriteLine($"Completed tests for {compressorName}.\n");
         }
@@ -155,6 +158,39 @@ namespace CSharpCompression.App
             Console.WriteLine($"Average Compression Time over {numberOfRuns} runs: {totalCompressionTime / numberOfRuns} ms");
             Console.WriteLine($"Average Decompression Time over {numberOfRuns} runs: {totalDecompressionTime / numberOfRuns} ms");
             Console.WriteLine($"Average Memory Usage over {numberOfRuns} runs: {totalMemoryUsed / numberOfRuns} bytes");
+        }
+
+        private void TestDataSizeReduction()
+        {
+            byte[] compressedData = null;
+            compressor.Compress(testData, ref compressedData);
+
+            long originalSize = testData.Length;
+            long compressedSize = compressedData.Length;
+
+            double reductionPercentage = 100 * (1 - (double)compressedSize / originalSize);
+
+            Console.WriteLine($"Data Size Reduction: {reductionPercentage:F2}% (higher is better)");
+        }
+
+        private void TestThroughputRate()
+        {
+            Stopwatch stopwatch = new Stopwatch();
+
+            byte[] compressedData = null;
+            stopwatch.Start();
+            compressor.Compress(testData, ref compressedData);
+            stopwatch.Stop();
+            double compressionThroughput = (testData.Length / 1024.0 / 1024.0) / (stopwatch.ElapsedMilliseconds / 1000.0); // MB/s
+
+            byte[] decompressedData = null;
+            stopwatch.Restart();
+            compressor.Decompress(compressedData, ref decompressedData);
+            stopwatch.Stop();
+            double decompressionThroughput = (compressedData.Length / 1024.0 / 1024.0) / (stopwatch.ElapsedMilliseconds / 1000.0); // MB/s
+
+            Console.WriteLine($"Compression Throughput: {compressionThroughput:F2} MB/s (higher is better)");
+            Console.WriteLine($"Decompression Throughput: {decompressionThroughput:F2} MB/s (higher is better)");
         }
     }
 }
