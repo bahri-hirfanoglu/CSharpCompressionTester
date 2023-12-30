@@ -21,15 +21,16 @@ namespace CSharpCompression.App
             this.compressorName = compressorName;
         }
 
-        public void RunTests()
+        public void RunTests(int numberOfRuns = 5)
         {
             Console.WriteLine($"Testing {compressorName}...");
 
             TestCompressionDecompressionTime();
             TestCompressionRatio();
             TestMemoryUsage();
+            TestCPULoad();
             TestIntegrity();
-            TestMultipleRuns(5);
+            TestMultipleRuns(numberOfRuns);
 
             Console.WriteLine($"Completed tests for {compressorName}.\n");
         }
@@ -71,6 +72,24 @@ namespace CSharpCompression.App
             Console.WriteLine($"Compression Ratio: {ratio:P2} (smaller is better)");
         }
 
+        private void TestCPULoad()
+        {
+            var process = Process.GetCurrentProcess();
+
+            byte[] compressedData = null;
+            compressor.Compress(testData, ref compressedData);
+
+            double compressionCpuUsage = process.TotalProcessorTime.TotalMilliseconds;
+
+            byte[] decompressedData = null;
+            compressor.Decompress(compressedData, ref decompressedData);
+
+            double totalCpuUsage = process.TotalProcessorTime.TotalMilliseconds;
+            double decompressionCpuUsage = totalCpuUsage - compressionCpuUsage;
+
+            Console.WriteLine($"CPU Time for Compression: {compressionCpuUsage} ms");
+            Console.WriteLine($"CPU Time for Decompression: {decompressionCpuUsage} ms");
+        }
         private void TestMemoryUsage()
         {
             long initialMemory = GC.GetTotalMemory(true);
