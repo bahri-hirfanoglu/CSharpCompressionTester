@@ -1,4 +1,5 @@
-﻿using CSharpCompression.Compressor;
+﻿using CSharpCompression.App.Helpers;
+using CSharpCompression.Compressor;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -62,12 +63,14 @@ namespace CSharpCompression.App
 
             if (compressed && decompressed)
             {
-                Console.WriteLine($"Compression Time: {compressionTime.TotalMilliseconds} ms");
-                Console.WriteLine($"Decompression Time: {decompressionTime.TotalMilliseconds} ms");
+                PrintHelper.TableLine("Compression Time (ms)", $"{compressionTime.TotalMilliseconds}", ConsoleColor.Green);
+                PrintHelper.TableLine("Decompression Time (ms)", $"{decompressionTime.TotalMilliseconds}", ConsoleColor.Green);
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Compression/Decompression failed.");
+                Console.ResetColor();
             }
         }
 
@@ -77,7 +80,7 @@ namespace CSharpCompression.App
             byte[] compressedData = null;
             compressor.Compress(testData, ref compressedData);
             double ratio = (double)compressedData.Length / testData.Length;
-            Console.WriteLine($"Compression Ratio: {ratio:P2} (smaller is better)");
+            PrintHelper.TableLine("Compression Ratio", $"{ratio:P2} (smaller is better)", ConsoleColor.Yellow);
         }
 
         // Measures the CPU time used for compression and decompression to gauge the algorithm's CPU usage.
@@ -96,8 +99,8 @@ namespace CSharpCompression.App
             double totalCpuUsage = process.TotalProcessorTime.TotalMilliseconds;
             double decompressionCpuUsage = totalCpuUsage - compressionCpuUsage;
 
-            Console.WriteLine($"CPU Time for Compression: {compressionCpuUsage} ms");
-            Console.WriteLine($"CPU Time for Decompression: {decompressionCpuUsage} ms");
+            PrintHelper.TableLine("CPU Time for Compression (ms)", $"{compressionCpuUsage}");
+            PrintHelper.TableLine("CPU Time for Decompression (ms)", $"{decompressionCpuUsage}");
         }
 
         // Measures the memory usage before and after compression and decompression to understand the algorithm's memory footprint.
@@ -110,7 +113,7 @@ namespace CSharpCompression.App
             compressor.Decompress(compressedData, ref decompressedData);
             long finalMemory = GC.GetTotalMemory(false);
 
-            Console.WriteLine($"Memory Usage: {finalMemory - initialMemory} bytes");
+            PrintHelper.TableLine("Memory Usage (bytes)", $"{finalMemory - initialMemory}", ConsoleColor.Magenta);
         }
 
         // Checks if the decompressed data is identical to the original data to ensure the algorithm's reliability.
@@ -166,9 +169,9 @@ namespace CSharpCompression.App
                 }
             }
 
-            Console.WriteLine($"Average Compression Time over {numberOfRuns} runs: {totalCompressionTime / numberOfRuns} ms");
-            Console.WriteLine($"Average Decompression Time over {numberOfRuns} runs: {totalDecompressionTime / numberOfRuns} ms");
-            Console.WriteLine($"Average Memory Usage over {numberOfRuns} runs: {totalMemoryUsed / numberOfRuns} bytes");
+            PrintHelper.TableLine("Average Compression Time (ms)", $"{totalCompressionTime / numberOfRuns}");
+            PrintHelper.TableLine("Average Decompression Time (ms)", $"{totalDecompressionTime / numberOfRuns}");
+            PrintHelper.TableLine("Average Memory Usage (bytes)", $"{totalMemoryUsed / numberOfRuns}");
         }
 
         // Calculates the percentage reduction in data size, providing another perspective on the algorithm's effectiveness.
@@ -182,7 +185,7 @@ namespace CSharpCompression.App
 
             double reductionPercentage = 100 * (1 - (double)compressedSize / originalSize);
 
-            Console.WriteLine($"Data Size Reduction: {reductionPercentage:F2}% (higher is better)");
+            PrintHelper.TableLine("Data Size Reduction", $"{reductionPercentage:F2}% (higher is better)");
         }
 
         // Measures the throughput rate in MB/s for both compression and decompression, indicating the algorithm's speed in processing data.
@@ -202,8 +205,8 @@ namespace CSharpCompression.App
             stopwatch.Stop();
             double decompressionThroughput = (compressedData.Length / 1024.0 / 1024.0) / (stopwatch.ElapsedMilliseconds / 1000.0); // MB/s
 
-            Console.WriteLine($"Compression Throughput: {compressionThroughput:F2} MB/s (higher is better)");
-            Console.WriteLine($"Decompression Throughput: {decompressionThroughput:F2} MB/s (higher is better)");
+            PrintHelper.TableLine("Compression Throughput (MB/s)", $"{compressionThroughput:F2} (higher is better)");
+            PrintHelper.TableLine("Decompression Throughput (MB/s)", $"{decompressionThroughput:F2} (higher is better)");
         }
 
         // Measures the peak memory usage during compression and decompression to identify the maximum memory requirement.
@@ -221,8 +224,8 @@ namespace CSharpCompression.App
             compressor.Decompress(compressedData, ref decompressedData);
             long peakMemoryDuringDecompression = GC.GetTotalMemory(true) - initialMemory;
 
-            Console.WriteLine($"Peak Memory Usage during Compression: {peakMemoryDuringCompression} bytes");
-            Console.WriteLine($"Peak Memory Usage during Decompression: {peakMemoryDuringDecompression} bytes");
+            PrintHelper.TableLine("Peak Memory Usage during Compression (bytes)", $"{peakMemoryDuringCompression}", ConsoleColor.Blue);
+            PrintHelper.TableLine("Peak Memory Usage during Decompression (bytes)", $"{peakMemoryDuringDecompression}", ConsoleColor.Blue);
         }
     }
 }

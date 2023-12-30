@@ -8,10 +8,10 @@ namespace CSharpCompression.App.Helpers
 {
     public class PrintHelper
     {
-        public static void PrintTableLine(string header, string value, ConsoleColor color = ConsoleColor.Gray)
+        public static void TableLine(string header, string value, ConsoleColor color = ConsoleColor.Gray)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.Write($"{header.PadRight(30)} : ");
+            Console.Write($"{header.PadRight(60).PadLeft(15)} : ");
             Console.ForegroundColor = color;
             Console.WriteLine(value);
             Console.ResetColor();
