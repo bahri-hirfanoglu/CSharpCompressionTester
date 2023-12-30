@@ -11,5 +11,4 @@ namespace CSharpCompression.Compressor
         bool Compress(byte[] data, ref byte[] compressed);
         bool Decompress(byte[] data, ref byte[] decompressed);
     }
-
 }
