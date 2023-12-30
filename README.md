@@ -31,7 +31,41 @@ The table below compares various performance metrics for the Brotli, GZip, and D
 | Compression Throughput | 23,84 MB/s | 23,66 MB/s | 0,92 MB/s |
 | Decompression Throughput | 280,58 MB/s | 414,77 MB/s | 366,80 MB/s |
 
-*Note: All tests were conducted on 10 MB of data.*
+*Note: All tests were conducted on 10 MB of data. Large Data: 100 MB*
+
+## Performance Analysis of Compression Algorithms
+
+***NOTE:** This section was prepared by ChatGPT 4 based on test results.*
+
+The table compares the performance of Deflate, GZip, and Brotli compression algorithms across various metrics. Here's an interpretation of the results:
+
+### 1. **Compression Time (ms):**
+- **For Small Data Set:** Deflate and GZip offer similar compression times, while Brotli takes significantly longer. This might indicate that Brotli uses more complex algorithms to achieve higher compression ratios.
+- **For Large Data Set (Stress Test):** A similar trend is observed for large data sets, with Brotli taking much longer to compress.
+
+### 2. **Decompression Time (ms):**
+- Decompression times for all algorithms are relatively similar, indicating comparable efficiency in this aspect.
+
+### 3. **CPU Time for Compression/Decompression (ms):**
+- Brotli uses significantly less CPU time for compression compared to the others, which may indicate higher efficiency. However, this is offset by longer compression times.
+- CPU times for decompression are similar across all algorithms, suggesting a comparable resource usage for this operation.
+
+### 4. **Memory Usage:**
+- All algorithms utilize a similar amount of memory. However, peak memory usage during compression and decompression might vary.
+
+### 5. **Throughput:**
+- **Compression:** Brotli's throughput efficiency (in MB/s) is significantly lower, indicating slower performance.
+- **Decompression:** For decompression efficiency, Brotli offers competitive values compared to the others.
+
+### Overall Assessment:
+- **Deflate and GZip:** These algorithms show similar performance and are generally faster in terms of compression and decompression times but may use more CPU time compared to Brotli.
+- **Brotli:** It might offer better compression ratios (not directly shown in the table but implied by longer compression times) but requires significantly more time for compression. It's more efficient in terms of CPU usage.
+
+### Conclusion:
+Each algorithm has its pros and cons. The best choice will depend on your specific needs and the requirements of your application:
+- **Looking for speed?** Deflate or GZip might be more suitable.
+- **Want to reduce CPU usage?** Brotli could be a better option.
+- **Seeking the best compression ratio?** Brotli may be more effective but at the cost of longer compression times.
 
 ## Application Screenshots
 
@@ -56,7 +90,6 @@ The table below compares various performance metrics for the Brotli, GZip, and D
 - **Data Integrity**: Checks whether the decompressed data matches the original data.
 - **Throughput Rate**: Calculates the rate of data processing during compression and decompression in MB/s.
 - **Multiple Runs**: Repeats the tests a specified number of times to ensure consistency and reliability of results.
-
 
 ## How to Use
 1. Clone the repository to your local machine.
