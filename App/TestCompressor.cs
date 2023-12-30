@@ -14,6 +14,7 @@ namespace CSharpCompression.App
         private string compressorName;
         private byte[] testData;
 
+        // Constructor: Initializes the compressor with the given ICompressor implementation, test data, and compressor name.
         public TestCompressor(ICompressor compressor, byte[] testData, string compressorName)
         {
             this.compressor = compressor;
@@ -21,6 +22,7 @@ namespace CSharpCompression.App
             this.compressorName = compressorName;
         }
 
+        // Runs all the tests for the specified compressor, allows specifying the number of runs for multiple run tests.
         public void RunTests(int numberOfRuns = 5)
         {
             Console.WriteLine($"Testing {compressorName}...");
@@ -39,6 +41,7 @@ namespace CSharpCompression.App
             Console.WriteLine($"Completed tests for {compressorName}.\n");
         }
 
+        // Measures the time taken to compress and decompress the test data, providing insight into the algorithm's speed.
         private void TestCompressionDecompressionTime()
         {
             Stopwatch stopwatch = new Stopwatch();
@@ -68,6 +71,7 @@ namespace CSharpCompression.App
             }
         }
 
+        // Calculates the compression ratio to understand how effectively the algorithm reduces data size.
         private void TestCompressionRatio()
         {
             byte[] compressedData = null;
@@ -76,6 +80,7 @@ namespace CSharpCompression.App
             Console.WriteLine($"Compression Ratio: {ratio:P2} (smaller is better)");
         }
 
+        // Measures the CPU time used for compression and decompression to gauge the algorithm's CPU usage.
         private void TestCPULoad()
         {
             var process = Process.GetCurrentProcess();
@@ -94,6 +99,8 @@ namespace CSharpCompression.App
             Console.WriteLine($"CPU Time for Compression: {compressionCpuUsage} ms");
             Console.WriteLine($"CPU Time for Decompression: {decompressionCpuUsage} ms");
         }
+
+        // Measures the memory usage before and after compression and decompression to understand the algorithm's memory footprint.
         private void TestMemoryUsage()
         {
             long initialMemory = GC.GetTotalMemory(true);
@@ -105,6 +112,8 @@ namespace CSharpCompression.App
 
             Console.WriteLine($"Memory Usage: {finalMemory - initialMemory} bytes");
         }
+
+        // Checks if the decompressed data is identical to the original data to ensure the algorithm's reliability.
         private void TestIntegrity()
         {
             byte[] compressedData = null;
@@ -122,6 +131,7 @@ namespace CSharpCompression.App
             }
         }
 
+        // Repeats all tests a specified number of times to ensure consistency and reliability of the results.
         private void TestMultipleRuns(int numberOfRuns)
         {
             Stopwatch stopwatch = new Stopwatch();
@@ -161,6 +171,7 @@ namespace CSharpCompression.App
             Console.WriteLine($"Average Memory Usage over {numberOfRuns} runs: {totalMemoryUsed / numberOfRuns} bytes");
         }
 
+        // Calculates the percentage reduction in data size, providing another perspective on the algorithm's effectiveness.
         private void TestDataSizeReduction()
         {
             byte[] compressedData = null;
@@ -174,6 +185,7 @@ namespace CSharpCompression.App
             Console.WriteLine($"Data Size Reduction: {reductionPercentage:F2}% (higher is better)");
         }
 
+        // Measures the throughput rate in MB/s for both compression and decompression, indicating the algorithm's speed in processing data.
         private void TestThroughputRate()
         {
             Stopwatch stopwatch = new Stopwatch();
@@ -194,6 +206,7 @@ namespace CSharpCompression.App
             Console.WriteLine($"Decompression Throughput: {decompressionThroughput:F2} MB/s (higher is better)");
         }
 
+        // Measures the peak memory usage during compression and decompression to identify the maximum memory requirement.
         private void TestPeakMemoryUsage()
         {
             long initialMemory = GC.GetTotalMemory(true);
