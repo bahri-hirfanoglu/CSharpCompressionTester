@@ -37,7 +37,7 @@ namespace CSharpCompression.App
             TestThroughputRate();
             TestIntegrity();
             TestMultipleRuns(numberOfRuns);
-         
+            TestStress();
 
             Console.WriteLine($"Completed tests for {compressorName}.\n");
         }
@@ -226,6 +226,35 @@ namespace CSharpCompression.App
 
             PrintHelper.TableLine("Peak Memory Usage during Compression (bytes)", $"{peakMemoryDuringCompression}", ConsoleColor.Blue);
             PrintHelper.TableLine("Peak Memory Usage during Decompression (bytes)", $"{peakMemoryDuringDecompression}", ConsoleColor.Blue);
+        }
+
+        private void TestStress()
+        {
+            PrintHelper.TableLine("Starting", "Stress Test");
+
+            Stopwatch stopwatchTotal = new Stopwatch();
+            stopwatchTotal.Start();
+
+            int largeDataSetSize = testData.Length * 10;
+            byte[] largeTestData = new byte[largeDataSetSize];
+            new Random().NextBytes(largeTestData);
+
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+            byte[] compressedData = null;
+            compressor.Compress(largeTestData, ref compressedData);
+            stopwatch.Stop();
+            PrintHelper.TableLine("Large Data Compression Time (ms)", $"{stopwatch.ElapsedMilliseconds}");
+
+            stopwatch.Restart();
+            byte[] decompressedData = null;
+            compressor.Decompress(compressedData, ref decompressedData);
+            stopwatch.Stop();
+            PrintHelper.TableLine("Large Data Decompression Time (ms)", $"{stopwatch.ElapsedMilliseconds}");
+
+            stopwatchTotal.Stop();
+            PrintHelper.TableLine("Total Stress Test Time (ms)", $"{stopwatchTotal.ElapsedMilliseconds}");
         }
     }
 }
