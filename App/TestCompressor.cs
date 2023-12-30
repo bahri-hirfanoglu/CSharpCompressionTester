@@ -28,6 +28,7 @@ namespace CSharpCompression.App
             TestCompressionDecompressionTime();
             TestCompressionRatio();
             TestMemoryUsage();
+            TestPeakMemoryUsage();
             TestCPULoad();
             TestDataSizeReduction();
             TestThroughputRate();
@@ -191,6 +192,24 @@ namespace CSharpCompression.App
 
             Console.WriteLine($"Compression Throughput: {compressionThroughput:F2} MB/s (higher is better)");
             Console.WriteLine($"Decompression Throughput: {decompressionThroughput:F2} MB/s (higher is better)");
+        }
+
+        private void TestPeakMemoryUsage()
+        {
+            long initialMemory = GC.GetTotalMemory(true);
+            byte[] compressedData = null;
+
+            compressor.Compress(testData, ref compressedData);
+            long peakMemoryDuringCompression = GC.GetTotalMemory(true) - initialMemory;
+
+            byte[] decompressedData = null;
+            initialMemory = GC.GetTotalMemory(true);
+
+            compressor.Decompress(compressedData, ref decompressedData);
+            long peakMemoryDuringDecompression = GC.GetTotalMemory(true) - initialMemory;
+
+            Console.WriteLine($"Peak Memory Usage during Compression: {peakMemoryDuringCompression} bytes");
+            Console.WriteLine($"Peak Memory Usage during Decompression: {peakMemoryDuringDecompression} bytes");
         }
     }
 }
