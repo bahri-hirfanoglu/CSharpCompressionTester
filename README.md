@@ -28,7 +28,7 @@ The table below compares various performance metrics for the Brotli, GZip, and D
 | Compression Throughput | 23,84 MB/s | 23,66 MB/s | 0,92 MB/s |
 | Decompression Throughput | 280,58 MB/s | 414,77 MB/s | 366,80 MB/s |
 
-*Note: These values are provided as examples. Please use the actual results from your tests. All tests were conducted on 10 MB of data.*
+*Note: All tests were conducted on 10 MB of data.*
 
 ## Features
 
