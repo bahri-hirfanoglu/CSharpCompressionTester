@@ -63,8 +63,8 @@ namespace CSharpCompression.App
 
             if (compressed && decompressed)
             {
-                PrintHelper.TableLine("Compression Time (ms)", $"{compressionTime.TotalMilliseconds}", ConsoleColor.Green);
-                PrintHelper.TableLine("Decompression Time (ms)", $"{decompressionTime.TotalMilliseconds}", ConsoleColor.Green);
+                PrintHelper.TableLine("Compression Time (ms)", $"{compressionTime.TotalMilliseconds} ms", ConsoleColor.Green);
+                PrintHelper.TableLine("Decompression Time (ms)", $"{decompressionTime.TotalMilliseconds} ms", ConsoleColor.Green);
             }
             else
             {
@@ -99,8 +99,8 @@ namespace CSharpCompression.App
             double totalCpuUsage = process.TotalProcessorTime.TotalMilliseconds;
             double decompressionCpuUsage = totalCpuUsage - compressionCpuUsage;
 
-            PrintHelper.TableLine("CPU Time for Compression (ms)", $"{compressionCpuUsage}");
-            PrintHelper.TableLine("CPU Time for Decompression (ms)", $"{decompressionCpuUsage}");
+            PrintHelper.TableLine("CPU Time for Compression (ms)", $"{compressionCpuUsage} ms");
+            PrintHelper.TableLine("CPU Time for Decompression (ms)", $"{decompressionCpuUsage} ms");
         }
 
         // Measures the memory usage before and after compression and decompression to understand the algorithm's memory footprint.
@@ -169,8 +169,8 @@ namespace CSharpCompression.App
                 }
             }
 
-            PrintHelper.TableLine("Average Compression Time (ms)", $"{totalCompressionTime / numberOfRuns}");
-            PrintHelper.TableLine("Average Decompression Time (ms)", $"{totalDecompressionTime / numberOfRuns}");
+            PrintHelper.TableLine("Average Compression Time (ms)", $"{totalCompressionTime / numberOfRuns} ms");
+            PrintHelper.TableLine("Average Decompression Time (ms)", $"{totalDecompressionTime / numberOfRuns} ms");
             PrintHelper.TableLine("Average Memory Usage (bytes)", $"{totalMemoryUsed / numberOfRuns}");
         }
 
@@ -205,8 +205,8 @@ namespace CSharpCompression.App
             stopwatch.Stop();
             double decompressionThroughput = (compressedData.Length / 1024.0 / 1024.0) / (stopwatch.ElapsedMilliseconds / 1000.0); // MB/s
 
-            PrintHelper.TableLine("Compression Throughput (MB/s)", $"{compressionThroughput:F2} (higher is better)");
-            PrintHelper.TableLine("Decompression Throughput (MB/s)", $"{decompressionThroughput:F2} (higher is better)");
+            PrintHelper.TableLine("Compression Throughput (MB/s)", $"{compressionThroughput:F2} MB/s (higher is better)");
+            PrintHelper.TableLine("Decompression Throughput (MB/s)", $"{decompressionThroughput:F2} MB/s (higher is better)");
         }
 
         // Measures the peak memory usage during compression and decompression to identify the maximum memory requirement.
@@ -230,12 +230,13 @@ namespace CSharpCompression.App
 
         private void TestStress()
         {
-            PrintHelper.TableLine("Starting", "Stress Test");
+            int length = testData.Length * 10;
+            Console.WriteLine($"Starting Stress Test with {length / 1024 / 1024} MB");
 
             Stopwatch stopwatchTotal = new Stopwatch();
             stopwatchTotal.Start();
 
-            int largeDataSetSize = testData.Length * 10;
+            int largeDataSetSize = length;
             byte[] largeTestData = new byte[largeDataSetSize];
             new Random().NextBytes(largeTestData);
 
@@ -245,16 +246,16 @@ namespace CSharpCompression.App
             byte[] compressedData = null;
             compressor.Compress(largeTestData, ref compressedData);
             stopwatch.Stop();
-            PrintHelper.TableLine("Large Data Compression Time (ms)", $"{stopwatch.ElapsedMilliseconds}");
+            PrintHelper.TableLine("Large Data Compression Time (ms)", $"{stopwatch.ElapsedMilliseconds} ms");
 
             stopwatch.Restart();
             byte[] decompressedData = null;
             compressor.Decompress(compressedData, ref decompressedData);
             stopwatch.Stop();
-            PrintHelper.TableLine("Large Data Decompression Time (ms)", $"{stopwatch.ElapsedMilliseconds}");
+            PrintHelper.TableLine("Large Data Decompression Time (ms)", $"{stopwatch.ElapsedMilliseconds} ms");
 
             stopwatchTotal.Stop();
-            PrintHelper.TableLine("Total Stress Test Time (ms)", $"{stopwatchTotal.ElapsedMilliseconds}");
+            PrintHelper.TableLine("Total Stress Test Time (ms)", $"{stopwatchTotal.ElapsedMilliseconds} ms");
         }
     }
 }

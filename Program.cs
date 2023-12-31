@@ -9,8 +9,22 @@ namespace CSharpCompression
     {
         static void Main(string[] args)
         {
-            byte[] testData = new byte[10000000];
+            Console.Title = "Compression Performance Tester";
+
+            int sizeInMB;
+            string input;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Enter the size of the byte array in MB:");
+                input = Console.ReadLine();
+            }
+            while (!int.TryParse(input, out sizeInMB) || sizeInMB <= 0);
+
+            byte[] testData = new byte[sizeInMB * 1024 * 1024];
             new Random().NextBytes(testData);
+
+            Console.Clear();
 
             var typesInAssembly = Assembly.GetExecutingAssembly().GetTypes();
 
